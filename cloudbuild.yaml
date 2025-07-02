@@ -1,0 +1,30 @@
+steps:
+- name: 'gcr.io/cloud-builders/mvn:3.9.6-eclipse-temurin-17'
+  entrypoint: 'mvn'
+  args: ['--version']
+  dir: 'backend'
+  id: 'Validate Backend Environment'
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'flutter'
+  args: ['--version']
+  dir: 'frontend'
+  id: 'Validate Frontend Environment'
+
+substitutions:
+  _GCP_REGION: 'us-central1'
+  _DB_INSTANCE_NAME: 'meal-planner-db-instance'
+
+
+availableSecrets:
+  secretManager:
+  - versionName: projects/$PROJECT_ID/secrets/POSTGRES_DB_URL/versions/latest
+    env: 'DB_URL_SECRET'
+  - versionName: projects/$PROJECT_ID/secrets/POSTGRES_DB_USERNAME/versions/latest
+    env: 'DB_USER_SECRET'
+  - versionName: projects/$PROJECT_ID/secrets/POSTGRES_DB_PASSWORD/versions/latest
+    env: 'DB_PASS_SECRET'
+  - versionName: projects/$PROJECT_ID/secrets/GOOGLE_OAUTH_CLIENT_ID/versions/latest
+    env: 'OAUTH_CLIENT_ID_SECRET'
+  - versionName: projects/$PROJECT_ID/secrets/GOOGLE_OAUTH_CLIENT_SECRET/versions/latest
+    env: 'OAUTH_CLIENT_SECRET_SECRET'
