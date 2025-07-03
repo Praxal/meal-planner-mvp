@@ -7,7 +7,8 @@ import com.kitchent.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -81,16 +82,8 @@ public class UserProfileController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<Object> getCurrentUser(Authentication authentication) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.status(401).body("Unauthorized");
-        }
-        
-        if (authentication.getPrincipal() instanceof OAuth2User) {
-            OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
-            return ResponseEntity.ok(oauth2User.getAttributes());
-        }
-        
-        return ResponseEntity.ok(authentication.getPrincipal());
+    public ResponseEntity<UserProfileDto> getMyProfile(@AuthenticationPrincipal OidcUser principal) {
+        // Logic to find or create user from principal and return DTO
+        return ResponseEntity.ok(userService.getUserProfile(principal));
     }
 }

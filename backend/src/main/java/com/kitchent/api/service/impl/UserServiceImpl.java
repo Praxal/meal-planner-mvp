@@ -11,6 +11,7 @@ import com.kitchent.api.repository.DietaryPreferenceRepository;
 import com.kitchent.api.repository.FamilyMemberRepository;
 import com.kitchent.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -142,5 +143,22 @@ public class UserServiceImpl implements UserService {
         }
         
         familyMemberRepository.delete(familyMember);
+    }
+
+    @Override
+    public UserProfileDto getUserProfile(OidcUser principal) {
+        String email = principal.getEmail();
+        
+        // Find user by email, or create if not exists (for OAuth users)
+        User user = userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setEmail(email);
+                    // You could set other fields from the OidcUser claims here if needed
+                    return userRepository.save(newUser);
+                });
+        
+        // Delegate to the existing getUserProfile method
+        return getUserProfile(user.getId());
     }
 }

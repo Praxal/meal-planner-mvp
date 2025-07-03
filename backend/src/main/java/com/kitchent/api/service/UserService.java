@@ -3,11 +3,13 @@ package com.kitchent.api.service;
 import com.kitchent.api.dto.UserProfileDto;
 import com.kitchent.api.dto.DietaryPreferenceDto;
 import com.kitchent.api.dto.FamilyMemberDto;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
     UserProfileDto getUserProfile(UUID userId);
+    UserProfileDto getUserProfile(OidcUser principal);
     UserProfileDto updateUserProfile(UUID userId, UserProfileDto userProfileDto);
     List<DietaryPreferenceDto> getUserDietaryPreferences(UUID userId);
     DietaryPreferenceDto addDietaryPreference(UUID userId, DietaryPreferenceDto preferenceDto);

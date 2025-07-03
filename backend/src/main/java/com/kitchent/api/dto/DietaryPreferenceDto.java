@@ -4,14 +4,14 @@ import java.util.UUID;
 
 public class DietaryPreferenceDto {
     private UUID id;
-    private String preference;
+    private String name;
 
     // Constructors
     public DietaryPreferenceDto() {}
 
-    public DietaryPreferenceDto(UUID id, String preference) {
+    public DietaryPreferenceDto(UUID id, String name) {
         this.id = id;
-        this.preference = preference;
+        this.name = name;
     }
 
     // Getters and Setters
@@ -23,11 +23,15 @@ public class DietaryPreferenceDto {
         this.id = id;
     }
 
-    public String getPreference() {
-        return preference;
+    public String getName() {
+        return name;
     }
 
-    public void setPreference(String preference) {
-        this.preference = preference;
+    public String getPreference() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
