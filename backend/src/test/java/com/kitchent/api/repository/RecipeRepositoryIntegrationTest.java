@@ -43,7 +43,8 @@ class RecipeRepositoryIntegrationTest extends BaseIntegrationTest {
         newRecipe.setName("Tomato Soup");
         newRecipe.setDescription("A simple tomato soup recipe.");
         newRecipe.setInstructions("1. Boil tomatoes. 2. Blend.");
-        newRecipe.setNutritionalInfo(Map.of("calories", 100, "fat", 0.5)); // Set valid JSON string
+        Map<String, Object> nutrition = Map.of("calories", 100, "fat", 0.5);
+        newRecipe.setNutritionalInfo(nutrition); // Set as Map, not String
 
         // Given: The link between the recipe and the ingredient, with quantity and unit
         RecipeIngredient recipeIngredient = new RecipeIngredient();

@@ -1,8 +1,7 @@
 package com.kitchent.api.model;
 
-import com.vladmihalcea.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcTypeCode;
 
 import java.util.Map;
 import java.util.Set;
@@ -24,8 +23,9 @@ public class Recipe {
     // Optional: description, instructions, nutritional_info (JSONB)
     private String description;
     private String instructions;
+    
     @Column(columnDefinition = "jsonb")
-    @Type(JsonType.class)
+    @JdbcTypeCode(org.hibernate.type.SqlTypes.JSON)
     private Map<String, Object> nutritionalInfo;
 
     // Getters and Setters

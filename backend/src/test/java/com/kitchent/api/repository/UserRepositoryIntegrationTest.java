@@ -4,11 +4,9 @@ import com.kitchent.api.BaseIntegrationTest;
 import com.kitchent.api.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Transactional // Ensures that test data is rolled back after each test method
 class UserRepositoryIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
