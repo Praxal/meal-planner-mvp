@@ -1,6 +1,10 @@
 package com.kitchent.api.model;
 
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
+
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -21,7 +25,8 @@ public class Recipe {
     private String description;
     private String instructions;
     @Column(columnDefinition = "jsonb")
-    private String nutritionalInfo;
+    @Type(JsonType.class)
+    private Map<String, Object> nutritionalInfo;
 
     // Getters and Setters
     public UUID getId() { return id; }
@@ -34,6 +39,6 @@ public class Recipe {
     public void setDescription(String description) { this.description = description; }
     public String getInstructions() { return instructions; }
     public void setInstructions(String instructions) { this.instructions = instructions; }
-    public String getNutritionalInfo() { return nutritionalInfo; }
-    public void setNutritionalInfo(String nutritionalInfo) { this.nutritionalInfo = nutritionalInfo; }
+    public Map<String, Object> getNutritionalInfo() { return nutritionalInfo; }
+    public void setNutritionalInfo(Map<String, Object> nutritionalInfo) { this.nutritionalInfo = nutritionalInfo; }
 }
